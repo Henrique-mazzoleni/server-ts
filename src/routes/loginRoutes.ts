@@ -15,23 +15,7 @@ const requireAuth = (req: Request, res: Response, next: NextFunction): void => {
   res.status(403).send('Not permitted');
 };
 
-router.get('/login', (req: Request, res: Response) => {
-  res.send(`
-    <form method="POST">
-      <div>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  `);
-});
-
-router.post('/login', (req: RequestWithBody, res: Response) => {
+router.post('/auth/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
 
   if (email && password && email === 'hey@you.com' && password === 'pass') {
@@ -54,7 +38,7 @@ router.get('/', (req: Request, res: Response) => {
     res.send(`
       <div>
         <h2>You are not logged in</h2>
-        <a href="/login">Log in</a>
+        <a href="/auth/login">Log in</a>
       </div>
     `);
   }
